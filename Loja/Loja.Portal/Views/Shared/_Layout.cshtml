@@ -1,46 +1,104 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loja</title>
-    <link rel="stylesheet" href="~/lib/materialize/css/materialize.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/vendors/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/vendors/font-awesome/css/font-awesome.min.css" />*@
+    <link rel="stylesheet" href="~/lib/vendors/fontawesome-5/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/vendors/nprogress/nprogress.css" />
+    <link rel="stylesheet" href="~/lib/vendors/iCheck/skins/flat/green.css" />
+    <link rel="stylesheet" href="~/lib/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" />
+    <link rel="stylesheet" href="~/lib/vendors/jqvmap/dist/jqvmap.min.css" />
+    <link rel="stylesheet" href="~/lib/vendors/bootstrap-daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="~/css/custom.min.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Loja.Portal</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border:0;">
+                        <a href="/Home/Index" class="site_title"><i class="fas fa-store"></i> <span>Loja</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="profile clearfix">
+                        <div class="profile_info">
+                            <span>Bem vindo, </span>
+                            <h2>Juliano Nascimento</h2>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3 id="g">Geral</h3>
+                            <ul class="nav side-menu">
+                                <li><a href="/Home/Index"><i class="fas fa-home"></i> Home</a></li>
+                                <li><a href="/Produto/Index"><i class="fas fa-shopping-bag"></i> Produtos</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Loja.Portal</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+        <footer class="border-top footer text-muted" style="text-align:center;">
+            <a href="http://www.4itconsultoria.com.br" target="_blank">&copy; @DateTime.Now.Year - Loja - 4IT Consultoria</a>
+        </footer>
     </div>
-
-    <footer class="border-top footer text-muted" style="text-align:center;">
-        <a href="http://www.4itconsultoria.com.br" target="_blank">&copy; @DateTime.Now.Year - Loja - 4IT Consultoria</a>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/materialize/js/materialize.min.js"></script>
-    <script src="~/js/site.js"></script>
+    <script src="~/lib/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/fastclick/lib/fastclick.js"></script>
+    <script src="~/lib/vendors/nprogress/nprogress.js"></script>
+    <script src="~/lib/vendors/Chart.js/dist/Chart.min.js"></script>
+    <script src="~/lib/vendors/gauge.js/dist/gauge.min.js"></script>
+    <script src="~/lib/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="~/lib/vendors/iCheck/icheck.min.js"></script>
+    <script src="~/lib/vendors/skycons/skycons.js"></script>
+    <script src="~/lib/vendors/Flot/jquery.flot.js"></script>
+    <script src="~/lib/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="~/lib/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="~/lib/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="~/lib/vendors/Flot/jquery.flot.resize.js"></script>
+    <script src="~/lib/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="~/lib/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="~/lib/vendors/flot.curvedlines/curvedLines.js"></script>
+    <script src="~/lib/vendors/DateJS/build/date.js"></script>
+    <script src="~/lib/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="~/lib/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="~/lib/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="~/lib/vendors/moment/min/moment.min.js"></script>
+    <script src="~/lib/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/js/custom.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
