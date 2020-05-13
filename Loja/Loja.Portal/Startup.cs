@@ -11,8 +11,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Loja.Repository.Services;
-using Loja.Repository.Services.Implementations;
+using Loja.Business.Interfaces;
+using Loja.Business.Entitys;
+using Loja.Repository.Interfaces;
+using Loja.Repository.Implementations;
 
 namespace Loja.Portal
 {
@@ -28,10 +30,16 @@ namespace Loja.Portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(5);
+            });
             services.AddControllersWithViews();
             services.AddDbContext<dblojaContext>(options =>
                                                     options.UseMySql(Configuration.GetConnectionString("Connection")));
-            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddMvc();
             services.AddAutoMapper(typeof(Startup));
         }
@@ -45,7 +53,7 @@ namespace Loja.Portal
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Dashboard/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -53,14 +61,14 @@ namespace Loja.Portal
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Produto}/{action=Index}/{id?}");
             });
         }
     }

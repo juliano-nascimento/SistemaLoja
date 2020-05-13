@@ -1,36 +1,38 @@
-﻿@model Loja.Repository.Dtos.ProdutoDto
+﻿@model Loja.Repository.Models.ProdutoModel
 @{
-    ViewData["Title"] = "Adicionar";
+    ViewData["Title"] = "Editar";
 }
-    <style>
-        .badgebox {
-            opacity: 0;
+
+<style>
+    .badgebox {
+        opacity: 0;
+    }
+
+        .badgebox + .badge {
+            text-indent: -999999px;
+            width: 27px;
         }
 
-            .badgebox + .badge {
-                text-indent: -999999px;
-                width: 27px;
-            }
-
-            /*.badgebox:focus + .badge {
+        /*.badgebox:focus + .badge {
                 box-shadow: inset 0px 0px 5px;
             }*/
 
-            .badgebox:checked + .badge {
-                text-indent: 0;
-            }
-    </style>
+        .badgebox:checked + .badge {
+            text-indent: 0;
+        }
+</style>
 
 <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="x_panel">
             <div class="x_title">
-                <span id="icon"><i class="fas fa-shopping-bag"></i> Cadastro de Produto </span>
+                <span id="icon"><i class="fas fa-shopping-bag"></i> Editar Produto </span>
             </div>
             <div class="x_content">
                 <br />
-                <form data-parsley-validate class="form-horizontal form-label-left" action="/Produto/Adiciona" method="post" id="formProduto">
+                <form data-parsley-validate class="form-horizontal form-label-left" action="/Produto/Edit" method="post" id="formProduto">
                     <div class="item form-group">
+                        <input type="hidden" name="IdProduto" value="@Model.IdProduto" />
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="codDeBarra">Código de Barra </label>
                         <div class="col-md-4 col-sm-4">
                             <input type="text" id="codDeBarra" name="CodDeBarra" value="@Model.CodDeBarra" class="form-control" />
@@ -47,11 +49,11 @@
                         <div class="col-md-6 col-sm-6">
                             <div id="tipo" class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                    <input type="checkbox" name="Entrada" value="1" class="badgebox join-btn" /> Entrada   
+                                    <input type="checkbox" name="Entrada" value="1" class="badgebox join-btn" @(Model.RetEntrada == "Sim" ? "checked" : "") /> Entrada
                                     <span class="badge">&check;</span>
                                 </label>
                                 <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                    <input type="checkbox" name="Saida" value="1" class="badgebox join-btn" />&nbsp; Saída 
+                                    <input type="checkbox" name="Saida" value="1" class="badgebox join-btn" @(Model.RetSaida == "Sim" ? "checked" : "") />&nbsp; Saída
                                     <span class="badge">&check;</span>
                                 </label>
                             </div>
@@ -60,38 +62,80 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="precoCompra">Preço de Compra <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="precoCompra" name="PrecoCompra" value="@Model.PrecoCompra" required="required" class="money form-control"  />
+                            <input type="text" id="precoCompra" name="PrecoCompra" value="@Model.PrecoCompra" required="required" class="money form-control" />
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="precoVenda">Preço de Venda <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="PrecoVenda" name="PrecoVenda" value="@Model.PrecoVenda" required="required" class="money form-control"  />
+                            <input type="text" id="PrecoVenda" name="PrecoVenda" value="@Model.PrecoVenda" required="required" class="money form-control" />
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="unidade">Unidade </label>
                         <div class="col-md-4 col-sm-4">
                             <select id="unidade" name="Unidade" class="form-control">
-                                <option value="UN">Unidade</option>
-                                <option value="KG">Kilograma</option>
-                                <option value="LT">Litro</option>
-                                <option value="CX">Caixa</option>
-                                <option value="M2">M²</option>
-                                <option value="OT">Outro</option>
+                                @if (Model.Unidade == "UN")
+                                {
+                                    <option value="UN" selected>Unidade</option>
+                                }
+                                else
+                                {
+                                    <option value="UN">Unidade</option>
+                                }
+                                @if (Model.Unidade == "KG")
+                                {
+                                    <option value="KG" selected>Kilograma</option>
+                                }
+                                else
+                                {
+                                    <option value="KG">Kilograma</option>
+                                }
+                                @if (Model.Unidade == "LT")
+                                {
+                                    <option value="LT" selected>Litro</option>
+                                }
+                                else
+                                {
+                                    <option value="LT">Litro</option>
+                                }
+                                @if (Model.Unidade == "CX")
+                                {
+                                    <option value="CX" selected>Caixa</option>
+                                }
+                                else
+                                {
+                                    <option value="CX">Caixa</option>
+                                }
+                                @if (Model.Unidade == "M2")
+                                {
+                                    <option value="M2" selected>M²</option>
+                                }
+                                else
+                                {
+                                    <option value="M2">M²</option>
+                                }
+                                @if (Model.Unidade == "OT")
+                                {
+                                    <option value="OT" selected>Outro</option>
+                                }
+                                else
+                                {
+                                    <option value="OT">Outro</option>
+                                }
                             </select>
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="dataValidade">Data de Validade </label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="dataValidade" name="DataValidade" value="@Model.DataValidade" class="form-control" onkeypress="$(this).mask('00/00/0000')" />
+                            <input type="text" id="dataValidade" name="DataValidadeEd" value="@Model.DataValidade" class="form-control" onkeypress="$(this).mask('00/00/0000')" />
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="estoque">Estoque <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="estoque" name="Estoque" value="@Model.Estoque" class="form-control" required="required"/>
+                            <input type="text" id="estoque" name="Estoque" value="@Model.Estoque" class="form-control" required="required" />
                         </div>
                     </div>
                     <div class="item form-group">
@@ -103,7 +147,7 @@
                     <div class="ln_solid"></div>
                     <div class="item form-actions">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Adicionar</button>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-sync-alt"></i> Atualizar</button>
                             <button type="reset" class="btn btn-primary"><i class="fas fa-redo-alt"></i> Limpar</button>
                             <a href="/Produto/Index" class="btn btn-secondary"><i class="fas fa-backward"></i> Voltar</a>
                         </div>
@@ -128,7 +172,7 @@
                 },
                 PrecoVenda: {
                     required: true
-                },                
+                },
                 Estoque: {
                     required: true
                 }
@@ -142,7 +186,7 @@
                 },
                 PrecoVenda: {
                     required:'Campo Obrigatório.'
-                },                
+                },
                 Estoque: {
                     required:'Campo Obrigatório.'
                 }

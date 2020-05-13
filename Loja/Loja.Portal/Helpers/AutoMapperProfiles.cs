@@ -13,7 +13,7 @@ namespace Loja.Portal.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Produto, ProdutoDto>()
-                .ReverseMap();
+                .ReverseMap();           
                 
         }
     }

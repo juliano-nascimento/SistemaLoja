@@ -1,0 +1,62 @@
+﻿@model Loja.Repository.Models.ProdutoModel
+@{
+    ViewData["Title"] = "Visualizar";
+}
+
+    <div class="x_panel">
+        <div class="x_title">
+            <span id="icon"><i class="fas fa-shopping-bag"></i> Dados do Produto </span>
+        </div>
+        <div class="x_content">
+            <br />
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Código de Barra </strong></td>
+                        <td>@Model.IdProduto</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Descrição </strong></td>
+                        <td>@Model.NomeProduto</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Unidade </strong></td>
+                        <td>@Model.Unidade</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Preço de Compra </strong></td>
+                        <td>R$ @Model.PrecoCompra</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Preço de Venda </strong></td>
+                        <td>R$ @Model.PrecoVenda</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Estoque </strong></td>
+                        <td>@Model.Estoque</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Estoque Minimo </strong></td>
+                        <td>@Model.EstoqueMinimo</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Data de Cadastro </strong></td>
+                        <td>@Model.DataCadastro</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Data de Atualização </strong></td>
+                        <td>@Model.DataAtualizacao</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Data de Validade </strong></td>
+                        <td>@Model.DataValidade</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:right; width:30%;"><strong>Usuário </strong></td>
+                        <td>@Model.NomeUsuario</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+

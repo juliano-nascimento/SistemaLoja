@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string[] uri = Context.Request.Path.ToUriComponent().Split("/");
+    var i = uri.Length;
+    string control = uri[1];
+    string control2 = i == 2 ? "Index" : uri[2];
+}
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -15,6 +23,7 @@
     <link rel="stylesheet" href="~/lib/vendors/jqvmap/dist/jqvmap.min.css" />
     <link rel="stylesheet" href="~/lib/vendors/bootstrap-daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="~/css/custom.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -33,46 +42,80 @@
                     </div>
                     <br />
 
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <nav id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <h3 id="g">Geral</h3>
                             <ul class="nav side-menu">
-                                <li><a href="/Home/Index"><i class="fas fa-home"></i> Home</a></li>
+                                <li><a href="/Dashboard/Index"><i class="fas fa-home"></i> Dashboard</a></li>
                                 <li><a href="/Produto/Index"><i class="fas fa-shopping-bag"></i> Produtos</a></li>
                             </ul>
                         </div>
+                    </nav>
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="/Login/Logout">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Loja.Portal</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class="navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left:15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    Juliano Nascimento
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Perfil</a>
+                                    <a class="dropdown-item" href="#">Ajuda</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i>Sair</a>
+                                </div>
                             </li>
                         </ul>
-                    </div>
+                    </nav>
                 </div>
-            </nav>
-        </header>
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            </div>
         </div>
-        <footer class="border-top footer text-muted" style="text-align:center;">
-            <a href="http://www.4itconsultoria.com.br" target="_blank">&copy; @DateTime.Now.Year - Loja - 4IT Consultoria</a>
+        <div class="right_col" role="main">
+            <div id="content-header">
+                <div id="breadcrumb">
+                    <a href="Dashboard/Index" title="Dashboard" class="tip-bottom"><i class="fas fa-home"></i> Dashboard</a>
+                    @if (!control.Equals("Dashboard") && (string.IsNullOrEmpty(control2) || control2.Equals("Index")))
+                    {
+                        <a href="/@control/Index" class="tip-bottom" title="@control">@control</a>
+                    }
+                    @if (!string.IsNullOrEmpty(control2) && control2 != "Index")
+                    {
+                        <a href="/@control/Index" class="tip-bottom" title="@control">@control</a><a href="/@control/@control2" class="tip-bottom" title="@control2">@control2</a>
+                    }
+                </div>
+            </div>
+            <div class="container-fluid" id="corpo">
+                @if (Context.Session.GetString("success") != null)
+                {
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        @Context.Session.GetString("success")
+                    </div>
+                }
+                @if (Context.Session.GetString("error") != null)
+                {
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        @Context.Session.GetString("error")
+                    </div>
+                }
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="border-top footer text-muted text-center">
+            <div class="container">
+                &copy; 2020 - Loja - Todos os direitos reservados
+            </div>
         </footer>
     </div>
     <script src="~/lib/vendors/jquery/dist/jquery.min.js"></script>
@@ -98,7 +141,19 @@
     <script src="~/lib/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <script src="~/lib/vendors/moment/min/moment.min.js"></script>
     <script src="~/lib/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/js/jquery.mask.js"></script>
+    <script type="text/javascript" src="~/js/maskmoney.js"></script>
+    <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+    <script src="~/js/matrix.js"></script>
     <script src="~/js/custom.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.alert').hide(); // ".alert" é a classe do elemento que seja manipular.
+            }, 10000); // O valor é representado em milisegundos.
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
