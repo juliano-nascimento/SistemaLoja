@@ -25,7 +25,7 @@ namespace Loja.Domain.Db
         public virtual DbSet<Pedido> Pedido { get; set; }
         public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<StatusCaixa> StatusCaixa { get; set; }
-        public virtual DbSet<StatusForncedor> StatusForncedor { get; set; }
+        public virtual DbSet<StatusFornecedor> StatusFornecedor { get; set; }
         public virtual DbSet<StatusItem> StatusItem { get; set; }
         public virtual DbSet<StatusPedido> StatusPedido { get; set; }
         public virtual DbSet<StatusUsuario> StatusUsuario { get; set; }
@@ -483,9 +483,9 @@ namespace Loja.Domain.Db
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.PrecoCompra).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.PrecoCompra).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.PrecoVenda).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.PrecoVenda).HasColumnType("decimal(10,2)");
 
                 entity.Property(e => e.Saida).HasColumnType("bit(1)");
 
@@ -522,16 +522,16 @@ namespace Loja.Domain.Db
                     .HasCollation("utf8_general_ci");
             });
 
-            modelBuilder.Entity<StatusForncedor>(entity =>
+            modelBuilder.Entity<StatusFornecedor>(entity =>
             {
-                entity.HasKey(e => e.IdStatusForncedor)
+                entity.HasKey(e => e.IdStatusFornecedor)
                     .HasName("PRIMARY");
 
-                entity.ToTable("status_forncedor");
+                entity.ToTable("status_fornecedor");
 
-                entity.Property(e => e.IdStatusForncedor).HasColumnType("int(11)");
+                entity.Property(e => e.IdStatusFornecedor).HasColumnType("int(11)");
 
-                entity.Property(e => e.DscStatusForncedor)
+                entity.Property(e => e.DscStatusFornecedor)
                     .IsRequired()
                     .HasColumnType("varchar(45)")
                     .HasCharSet("utf8")

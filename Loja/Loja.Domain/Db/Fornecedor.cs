@@ -17,7 +17,7 @@ namespace Loja.Domain.Db
         public string Celular { get; set; }
         public int StatusFornecedorId { get; set; }
 
-        public virtual StatusForncedor StatusFornecedor { get; set; }
+        public virtual StatusFornecedor StatusFornecedor { get; set; }
         public virtual ICollection<Lancamento> Lancamento { get; set; }
     }
 }

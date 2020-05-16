@@ -1,0 +1,42 @@
+﻿@model Loja.Repository.Dtos.FornecedorDto
+@{
+    ViewData["Title"] = "Visualizar";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <span id="icon"><i class="fas fa-truck"></i> Dados do Fornecedor </span>
+    </div>
+    <div class="x_content">
+        <br />
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Código Fornecedor</strong></td>
+                    <td>@Model.IdFornecedor</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:30%;"><strong>Nome Fornecedor</strong></td>
+                    <td>@Model.NomeFornecedor</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:30%;"><strong>CNPJ</strong></td>
+                    <td>@Model.Cnpj</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:30%;"><strong>Telefone</strong></td>
+                    <td>@Model.Telefone</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:30%;"><strong>Celular</strong></td>
+                    <td>@Model.Celular</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:30%;"><strong>Status </strong></td>
+                    <td>@Model.DscStatusFornecedor</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

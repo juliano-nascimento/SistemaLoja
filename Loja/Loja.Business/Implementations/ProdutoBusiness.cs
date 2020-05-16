@@ -9,7 +9,7 @@ using Loja.Repository.Dtos;
 using Loja.Repository.Interfaces;
 using Loja.Repository.Models;
 
-namespace Loja.Business.Entitys
+namespace Loja.Business.Implementations
 {
     public class ProdutoBusiness : IProdutoBusiness
     {

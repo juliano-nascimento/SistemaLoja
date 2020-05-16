@@ -4,7 +4,7 @@
 }
 
 <div id="btnAdd">
-    <a href="/Produto/Adicionar" class="btn btn-success"><i class="fas fa-plus"></i> Adicionar Produto</a>
+    <a href="/Produto/Adicionar" class="btn btn-success"><i class="fas fa-plus"></i> Novo Produto</a>
 </div>
 
 <div class="row" style="display:block;">
@@ -17,13 +17,10 @@
             </div>
             <div class="x_content">
                 <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk-action">
+                    <table class="table table-striped jambo_table bulk_action">
                         <thead>
-                            <tr class="headings">
-                                <th>
-                                    <input type="checkbox" id="check-all" class="flat" />
-                                </th>
-                                <th class="column-title">Cód. Produto</th>
+                            <tr class="headings">                                
+                                <th class="column-title" style="width:15%;">Cód. Produto</th>
                                 <th class="column-title">Código de Barra</th>
                                 <th class="column-title">Nome</th>
                                 <th class="column-title">Preço</th>
@@ -36,10 +33,7 @@
                             {
                                 foreach (var p in Model.ListaProdutos)
                                 {
-                                    <tr>
-                                        <td class="a-center">
-                                            <input type="checkbox" class="flat" name="table_records" />
-                                        </td>
+                                    <tr>                                        
                                         <td class="">@p.IdProduto</td>
                                         <td class="">@p.CodDeBarra</td>
                                         <td class="">@p.NomeProduto</td>
@@ -57,7 +51,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="7">Nenhum Produto Cadastrado.</td>
+                                    <td colspan="6">Nenhum Produto Cadastrado.</td>
                                 </tr>
                             }
 
@@ -127,33 +121,6 @@
         </div>
     </div>
 </div>
-@*<div id="atualizar-estoque" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <form action="/Produto/AtualizarEstoque" method="post" id="formEstoque">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-            <h5 id="myModalLabel"><i class="fas fa-plus-square"></i> Atualizar Estoque</h5>
-        </div>
-        <div class="modal-body">
-            <div class="control-group">
-                <label for="estoqueAtual" class="control-label">Estoque Atual</label>
-                <div class="controls">
-                    <input id="estoqueAtual" type="text" name="EstoqueAtual" value="" readonly />
-                </div>
-            </div>
-            <div class="control-group">
-                <label for="estoque" class="control-label">Adicionar Produtos <span class="required">*</span></label>
-                <div class="controls">
-                    <input type="hidden" id="idProduto" class="idProduto" name="IdProdutos" value="" />
-                    <input type="text" id="estoque" name="Estoque" value="" />
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button class="btn btn-primary">Atualizar</button>
-        </div>
-    </form>
-</div>*@
 <!--Fim Modal Estoque-->
 
 

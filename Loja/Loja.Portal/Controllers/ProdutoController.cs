@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using AutoMapper;
-using Loja.Business.Entitys;
 using Loja.Business.Interfaces;
 using Loja.Repository.Dtos;
 using Loja.Repository.Models;

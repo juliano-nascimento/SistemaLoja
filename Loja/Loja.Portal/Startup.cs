@@ -12,9 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Loja.Business.Interfaces;
-using Loja.Business.Entitys;
 using Loja.Repository.Interfaces;
 using Loja.Repository.Implementations;
+using Loja.Business.Implementations;
 
 namespace Loja.Portal
 {
@@ -38,8 +38,12 @@ namespace Loja.Portal
             services.AddControllersWithViews();
             services.AddDbContext<dblojaContext>(options =>
                                                     options.UseMySql(Configuration.GetConnectionString("Connection")));
+            //Interfaces Business
             services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
+            services.AddScoped<IFornecedorBusiness, FornecedorBusiness>();
+            //Interfaces Repository
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddMvc();
             services.AddAutoMapper(typeof(Startup));
         }
@@ -68,7 +72,7 @@ namespace Loja.Portal
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Produto}/{action=Index}/{id?}");
+                    pattern: "{controller=Fornecedor}/{action=Index}/{id?}");
             });
         }
     }

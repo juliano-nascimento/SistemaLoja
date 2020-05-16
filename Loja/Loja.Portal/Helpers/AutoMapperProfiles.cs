@@ -13,7 +13,9 @@ namespace Loja.Portal.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Produto, ProdutoDto>()
-                .ReverseMap();           
+                .ReverseMap();
+            CreateMap<Fornecedor, FornecedorDto>()
+                .ReverseMap();
                 
         }
     }

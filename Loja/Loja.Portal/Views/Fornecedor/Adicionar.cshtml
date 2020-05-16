@@ -1,0 +1,115 @@
+﻿@model Loja.Repository.Dtos.FornecedorDto
+@{
+    ViewData["Title"] = "Adicionar";
+}
+
+<style>
+    .badgebox {
+        opacity: 0;
+    }
+
+    .badgebox + .badge {
+        text-indent: -999999px;
+        width: 27px;
+    }
+
+    /*.badgebox:focus + .badge {
+            box-shadow: inset 0px 0px 5px;
+        }*/
+
+    .badgebox:checked + .badge {
+        text-indent: 0;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <span id="icon"><i class="fas fa-truck"></i> Cadastro de Fornecedor</span>
+            </div>
+            <div class="x_content">
+                <br />
+                <form class="form-horizontal form-label-left" action="/Fornecedor/Adiciona" method="post" id="formFornecedor">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="nome">Nome Fornecedor <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="nome" name="NomeFornecedor" value="@Model.NomeFornecedor" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="documento">CNPJ Fornecedor <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="documento" name="Cnpj" value="@Model.Cnpj" class="form-control" onkeypress="$(this).mask('99.999.999/9999-99')"/>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tel">Telefone </label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="tel" name="Telefone" value="@Model.Telefone" class="form-control" onkeypress="$(this).mask('(00) 0000-0000')" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="cel">Celular </label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="cel" name="Celular" value="@Model.Celular" class="form-control" onkeypress="$(this).mask('(00) 00000-0000')"  />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="statusFornecedor">Status Fornecedor </label>
+                        <div class="col-md-4 col-sm-4">
+                            <select id="statusFornecedor" name="StatusFornecedorId" class="form-control">
+                                <option value="1">Ativo</option>
+                                <option value="2">Inativo</option>
+                                <option value="3">Suspenso</option>
+                                <option value="4">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-actions">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Adicionar</button>
+                            <button type="reset" class="btn btn-primary"><i class="fas fa-redo-alt"></i> Limpar</button>
+                            <a href="/Fornecedor/Index" class="btn btn-secondary"><i class="fas fa-backward"></i> Voltar</a>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#formFornecedor').validate({
+            rules: {
+                NomeFornecedor: {
+                    required: true
+                },
+                Cnpj: {
+                    required: true
+                }
+            },
+            messages: {
+                NomeFornecedor: {
+                    required: 'Campo Obrigatório.'
+                },
+                Cnpj: {
+                    required: 'Campo Obrigatório.'
+                }
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').removeClass('error');
+                $(element).parents('.form-group').addClass('success');
+            }
+        });
+    });
+
+</script>

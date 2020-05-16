@@ -13,8 +13,8 @@ namespace Loja.Domain.Db
         public int IdProduto { get; set; }
         public string NomeProduto { get; set; }
         public string Unidade { get; set; }
-        public string PrecoCompra { get; set; }
-        public string PrecoVenda { get; set; }
+        public decimal PrecoCompra { get; set; }
+        public decimal PrecoVenda { get; set; }
         public int Estoque { get; set; }
         public int? EstoqueMinimo { get; set; }
         public ulong? Saida { get; set; }

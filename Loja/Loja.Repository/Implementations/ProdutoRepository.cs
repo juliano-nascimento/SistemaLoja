@@ -68,7 +68,7 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append($" {produto.UsuarioId}) ");
                 command = new MySqlCommand(stbSQL.ToString(), Conn);
                 await Conn.OpenAsync();
-                com = command.ExecuteNonQuery();
+                com = await command.ExecuteNonQueryAsync();
                 if (com > 0)
                     retorno = true;
                 await Conn.CloseAsync();
@@ -185,7 +185,7 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append($" WHERE IdProduto =  {pProduto.IdProduto} ");
                 command = new MySqlCommand(stbSQL.ToString(), Conn);
                 await Conn.OpenAsync();
-                com = command.ExecuteNonQuery();
+                com = await command.ExecuteNonQueryAsync();
                 if (com > 0)
                     retorno = true;
                 await Conn.CloseAsync();
@@ -211,7 +211,7 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append($" IdProduto = {pId} ");
                 command = new MySqlCommand(stbSQL.ToString(), Conn);
                 await Conn.OpenAsync();
-                com = command.ExecuteNonQuery();
+                com = await command.ExecuteNonQueryAsync();
                 if (com > 0)
                     retorno = true;
                 await Conn.CloseAsync();
@@ -236,7 +236,7 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append($" WHERE IdProduto = {pId}");
                 command = new MySqlCommand(stbSQL.ToString(), Conn);
                 await Conn.OpenAsync();
-                com = command.ExecuteNonQuery();
+                com = await command.ExecuteNonQueryAsync();
                 if (com > 0)
                     result = true;
                 await Conn.CloseAsync();
