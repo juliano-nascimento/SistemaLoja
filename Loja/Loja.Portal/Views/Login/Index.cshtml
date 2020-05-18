@@ -1,0 +1,121 @@
+﻿@model Loja.Repository.Dtos.UsuarioDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loja</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="~/css/matrix-login.css" />
+    <link rel="stylesheet" href="~/lib/vendors/fontawesome-5/css/all.min.css" />
+    <script type="text/javascript" src="~/js/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <div id="loginbox">        
+        <form class="form-vertical" id="formLogin" action="/Login/VerificarLogin" method="post">
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lg"><i class="fas fa-user"></i></span><input type="email" id="email" name="Email" placeholder="E-mail" />
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_lb"><i class="fas fa-lock"></i></span><input type="password" name="Senha" placeholder="Senha" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions" style="text-align:center;">
+                <div id="progress-acessar" class="hide progress progress-info progress-striped active">
+                    <div class="bar" style="width:100%;"></div>
+                </div>
+                <button id="btn-acessar" class="btn btn-success btn-large"> Logar</button>
+            </div>
+        </form>
+    </div>
+    <a href="#notification" id="call-modal" role="button" class="btn" data-toggle="modal" style="display:none;">Notificação</a>
+    <div id="notification" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+            <h4 id="myModalLabel">FourOS</h4>
+        </div>
+        <div class="modal-body">
+            <h5 style="text-align:center;" id="message">Os dados de acesso estão incorretos, por favor tente novamente!</h5>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Fechar</button>
+        </div>
+    </div>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#email').focus();
+            $('#formLogin').validate({
+                rules: {
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Senha: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Email: {
+                        required: 'Campo Obrigatório',
+                        email: 'Insira um Email valido'
+                    },
+                    Senha: {
+                        required: 'Campo Obrigatório'
+                    }
+                },
+                submitHandler: function (form) {
+                    var dados = $(form).serialize();
+                    $('#btn-acessar').addClass('disabled');
+                    $('#progress-acessar').removeClass('hide');
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Login/VerificarLogin?ajax=true",
+                        data: dados,
+                        dataType: 'json',
+                        success: function (data) {
+                            var obj = JSON.parse(data);
+                            if (obj.Result == true) {
+                                window.location.href = "/Dashboard/Index";
+                            } else {
+                                $('#btn-acessar').removeClass('disabled');
+                                $('#progress-acessar').addClass('hide');
+
+                                $('#message').text(obj.Mensagem || 'Os Dados de acesso estão incorretos, por favor tente novamente!');
+                                $('#call-modal').trigger('click');
+                            }
+                        }
+                    });
+                    return false;
+                },
+
+                errorClass: "help-inline",
+                errorElement: "span",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).parents('.control-group').addClass('error');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).parents('.control-group').removeClass('error');
+                    $(element).parents('.control-group').addClass('success');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

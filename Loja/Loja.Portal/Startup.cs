@@ -15,6 +15,7 @@ using Loja.Business.Interfaces;
 using Loja.Repository.Interfaces;
 using Loja.Repository.Implementations;
 using Loja.Business.Implementations;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Loja.Portal
 {
@@ -30,6 +31,9 @@ namespace Loja.Portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/Login/Index");
+
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -41,9 +45,11 @@ namespace Loja.Portal
             //Interfaces Business
             services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
             services.AddScoped<IFornecedorBusiness, FornecedorBusiness>();
+            services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
             //Interfaces Repository
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddMvc();
             services.AddAutoMapper(typeof(Startup));
         }
@@ -63,7 +69,7 @@ namespace Loja.Portal
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
@@ -72,7 +78,7 @@ namespace Loja.Portal
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Fornecedor}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }
