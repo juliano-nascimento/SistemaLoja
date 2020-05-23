@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Loja.Business.Interfaces;
@@ -68,7 +67,7 @@ namespace Loja.Business.Implementations
             {
                 produto = await _repository.FindById(pId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -80,18 +79,18 @@ namespace Loja.Business.Implementations
             bool retorno = false;
             try
             {
-                if(pProduto.DataValidadeEd != null)
+                if (pProduto.DataValidadeEd != null)
                 {
-                    pProduto.DataValidadeEd = DateTime.Parse(pProduto.DataValidadeEd).ToString("yyyy/MM/dd");                                    
+                    pProduto.DataValidadeEd = DateTime.Parse(pProduto.DataValidadeEd).ToString("yyyy/MM/dd");
                 }
                 pProduto.UsuarioId = 1;
                 pProduto.PrecoCompra = pProduto.PrecoCompra.Replace(",", ".");
                 pProduto.PrecoVenda = pProduto.PrecoVenda.Replace(",", ".");
 
                 if (await _repository.Update(pProduto))
-                    retorno = true;                    
+                    retorno = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -106,7 +105,7 @@ namespace Loja.Business.Implementations
                 if (await _repository.Delete(pId))
                     retorno = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -121,7 +120,7 @@ namespace Loja.Business.Implementations
                 if (await _repository.UpdateEstoque(pId, pEstoque))
                     retorno = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

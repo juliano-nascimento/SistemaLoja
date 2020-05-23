@@ -8,18 +8,18 @@
         opacity: 0;
     }
 
-    .badgebox + .badge {
-        text-indent: -999999px;
-        width: 27px;
-    }
+        .badgebox + .badge {
+            text-indent: -999999px;
+            width: 27px;
+        }
 
-    /*.badgebox:focus + .badge {
+        /*.badgebox:focus + .badge {
             box-shadow: inset 0px 0px 5px;
         }*/
 
-    .badgebox:checked + .badge {
-        text-indent: 0;
-    }
+        .badgebox:checked + .badge {
+            text-indent: 0;
+        }
 </style>
 
 <div class="row">
@@ -40,7 +40,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="documento">CNPJ Fornecedor <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="documento" name="Cnpj" value="@Model.Cnpj" class="form-control" onkeypress="$(this).mask('99.999.999/9999-99')"/>
+                            <input type="text" id="documento" name="Cnpj" value="@Model.Cnpj" class="form-control" onkeypress="$(this).mask('99.999.999/9999-99')" />
                         </div>
                     </div>
                     <div class="item form-group">
@@ -52,7 +52,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="cel">Celular </label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="cel" name="Celular" value="@Model.Celular" class="form-control" onkeypress="$(this).mask('(00) 00000-0000')"  />
+                            <input type="text" id="cel" name="Celular" value="@Model.Celular" class="form-control" onkeypress="$(this).mask('(00) 00000-0000')" />
                         </div>
                     </div>
                     <div class="item form-group">
@@ -74,7 +74,7 @@
                             <a href="/Fornecedor/Index" class="btn btn-secondary"><i class="fas fa-backward"></i> Voltar</a>
                         </div>
                     </div>
-                </form> 
+                </form>
             </div>
         </div>
     </div>

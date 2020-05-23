@@ -1,13 +1,11 @@
 ﻿using Loja.Domain.Db;
 using Loja.Repository.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Loja.Repository.Interfaces
 {
-   public interface IProdutoRepository
+    public interface IProdutoRepository
     {
         Task<bool> Add(Produto produto);
         Task<ProdutoModel> FindById(int id);

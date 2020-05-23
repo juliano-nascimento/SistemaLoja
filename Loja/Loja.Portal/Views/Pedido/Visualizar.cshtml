@@ -1,0 +1,50 @@
+﻿@model Loja.Repository.Dtos.PedidoDto 
+@{
+    ViewData["Title"] = "Visualizar";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <span id="icon"><i class="fas fa-receipt"></i> Dados do Pedido</span>
+    </div>
+    <div class="x_content">
+        <br />
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Código Pedido </strong></td>
+                    <td>@Model.IdPedido</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Descrição Pedido </strong></td>
+                    <td>@Model.DescricaoPedido</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Data Pedido</strong></td>
+                    <td>@Model.DataPedido</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Valor Total</strong></td>
+                    <td>@Model.ValorTotal</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Descrição Produtos </strong></td>
+                    <td>@Model.DscProdutos</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Usuário Responsável </strong></td>
+                    <td>@Model.NomeUsuario</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Status Pedido </strong></td>
+                    <td>@Model.DscStatusPedido</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Fornecedor </strong></td>
+                    <td>@Model.NomeFornecedor</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

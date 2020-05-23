@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Loja.Domain.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,10 +42,14 @@ namespace Loja.Portal
             services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
             services.AddScoped<IFornecedorBusiness, FornecedorBusiness>();
             services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
+            services.AddScoped<IPedidoBusiness, PedidoBusiness>();
+            services.AddScoped<ILancamentoBusiness, LancamentoBusiness>();
             //Interfaces Repository
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<ILancamentoRepository, LancamentoRepository>();
             services.AddMvc();
             services.AddAutoMapper(typeof(Startup));
         }

@@ -1,11 +1,9 @@
 ﻿using Loja.Domain.Db;
 using Loja.Repository.Dtos;
 using Loja.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -82,7 +80,7 @@ namespace Loja.Repository.Implementations
                     result = true;
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Conn.CloseAsync();
                 throw new Exception("Erro ao cadastrar fornecedor. " + ex.Message);
@@ -117,7 +115,7 @@ namespace Loja.Repository.Implementations
                 reader.Close();
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 reader.Close();
                 await Conn.CloseAsync();
@@ -144,7 +142,7 @@ namespace Loja.Repository.Implementations
                     result = true;
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Conn.CloseAsync();
                 throw new Exception("Erro ao deletar fornecedor. " + ex.Message);
@@ -172,12 +170,42 @@ namespace Loja.Repository.Implementations
                     result = true;
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Conn.CloseAsync();
                 throw new Exception("Erro ao atualizar o Fornecedor. " + ex.Message);
             }
             return result;
+        }
+
+        public async Task<List<string>> FindNomeIdPorTermo(string pTermo)
+        {
+            stbSQL = new StringBuilder();
+            List<string> lstFornecedores = new List<string>();
+            try
+            {
+                stbSQL.Append(" SELECT   ");
+                stbSQL.Append(" IdFornecedor, ");
+                stbSQL.Append(" NomeFornecedor ");
+                stbSQL.Append(" FROM fornecedor NOLOCK  ");
+                stbSQL.Append($" WHERE NomeFornecedor LIKE '{pTermo}%' ");
+                command = new MySqlCommand(stbSQL.ToString(), Conn);
+                await Conn.OpenAsync();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    lstFornecedores.Add(string.Format("{0}-{1}", reader["NomeFornecedor"], reader["IdFornecedor"]));
+                }
+                reader.Close();
+                await Conn.CloseAsync();
+            }
+            catch(Exception ex)
+            {
+                reader.Close();
+                await Conn.CloseAsync();
+                throw new Exception("Erro ao consultar fornecedor por termo. " + ex.Message);
+            }
+            return lstFornecedores;
         }
     }
 }

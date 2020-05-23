@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loja</title>
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
     <link rel="stylesheet" href="~/lib/vendors/bootstrap/dist/css/bootstrap.min.css" />
     @*<link rel="stylesheet" href="~/lib/vendors/font-awesome/css/font-awesome.min.css" />*@
     <link rel="stylesheet" href="~/lib/vendors/fontawesome-5/css/all.min.css" />
@@ -49,6 +50,7 @@
                                 <li><a href="/Dashboard/Index"><i class="fas fa-home"></i> Dashboard</a></li>
                                 <li><a href="/Produto/Index"><i class="fas fa-shopping-bag"></i> Produtos</a></li>
                                 <li><a href="/Fornecedor/Index"><i class="fas fa-truck"></i> Fornecedores</a></li>
+                                <li><a href="/Pedido/Index"><i class="fas fa-receipt"></i> Pedidos</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -73,7 +75,7 @@
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">Perfil</a>
                                     <a class="dropdown-item" href="#">Ajuda</a>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-sign-out pull-right"></i>Sair</a>
+                                    <a class="dropdown-item" href="/Login/Logout"><i class="fa fa-sign-out pull-right"></i>Sair</a>
                                 </div>
                             </li>
                         </ul>
@@ -84,7 +86,7 @@
         <div class="right_col" role="main">
             <div id="content-header">
                 <div id="breadcrumb">
-                    <a href="Dashboard/Index" title="Dashboard" class="tip-bottom"><i class="fas fa-home"></i> Dashboard</a>
+                    <a href="/Dashboard/Index" title="Dashboard" class="tip-bottom"><i class="fas fa-home"></i> Dashboard</a>
                     @if (!control.Equals("Dashboard") && (string.IsNullOrEmpty(control2) || control2.Equals("Index")))
                     {
                         <a href="/@control/Index" class="tip-bottom" title="@control">@control</a>
@@ -119,7 +121,9 @@
             </div>
         </footer>
     </div>
-    <script src="~/lib/vendors/jquery/dist/jquery.min.js"></script>
+       
+    <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+    <script src="~/lib/vendors/jquery/dist/jquery.min.js?v=1"></script>
     <script src="~/lib/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/vendors/fastclick/lib/fastclick.js"></script>
     <script src="~/lib/vendors/nprogress/nprogress.js"></script>

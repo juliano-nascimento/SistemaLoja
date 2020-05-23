@@ -121,13 +121,13 @@ namespace Loja.Domain.Db
                     .HasColumnName("StatusCaixa_Id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.TotalCredito).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.TotalCredito).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.TotalDebito).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.TotalDebito).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.TotalDinheiro).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.TotalDinheiro).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.TotalVendas).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.TotalVendas).HasColumnType("decimal(10,2)");
 
                 entity.HasOne(d => d.Abertura)
                     .WithMany(p => p.Caixa)
@@ -181,7 +181,7 @@ namespace Loja.Domain.Db
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.Saldo).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.Saldo).HasColumnType("decimal(10,2)");
             });
 
             modelBuilder.Entity<FechamentoCaixa>(entity =>
@@ -335,7 +335,7 @@ namespace Loja.Domain.Db
                     .HasColumnName("Usuario_Id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ValorLancamento).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.ValorLancamento).HasColumnType("decimal(10,2)");
 
                 entity.HasOne(d => d.Conta)
                     .WithMany(p => p.Lancamento)
@@ -390,6 +390,9 @@ namespace Loja.Domain.Db
 
                 entity.ToTable("pedido");
 
+                entity.HasIndex(e => e.FornecedorId)
+                    .HasName("PedidoFornecedor_idx");
+
                 entity.HasIndex(e => e.LancamentoId)
                     .HasName("PedidoLancamento_idx");
 
@@ -415,6 +418,10 @@ namespace Loja.Domain.Db
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
+                entity.Property(e => e.FornecedorId)
+                    .HasColumnName("Fornecedor_Id")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.LancamentoId)
                     .HasColumnName("Lancamento_Id")
                     .HasColumnType("int(11)");
@@ -427,7 +434,13 @@ namespace Loja.Domain.Db
                     .HasColumnName("Usuario_Id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ValorTotal).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.ValorTotal).HasColumnType("decimal(10,2)");
+
+                entity.HasOne(d => d.Fornecedor)
+                    .WithMany(p => p.Pedido)
+                    .HasForeignKey(d => d.FornecedorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("PedidoFornecedor");
 
                 entity.HasOne(d => d.Lancamento)
                     .WithMany(p => p.Pedido)
@@ -806,11 +819,11 @@ namespace Loja.Domain.Db
                     .HasColumnName("Usuario_Id")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ValorDesconto).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.ValorDesconto).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.ValorLiquido).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.ValorLiquido).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.ValorTotal).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.ValorTotal).HasColumnType("decimal(10,2)");
 
                 entity.HasOne(d => d.Caixa)
                     .WithMany(p => p.Venda)
@@ -876,9 +889,9 @@ namespace Loja.Domain.Db
 
                 entity.Property(e => e.NumCaixa).HasColumnType("int(11)");
 
-                entity.Property(e => e.PrecoProduto).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.PrecoProduto).HasColumnType("decimal(10,2)");
 
-                entity.Property(e => e.PrecoTotal).HasColumnType("decimal(10,0)");
+                entity.Property(e => e.PrecoTotal).HasColumnType("decimal(10,2)");
 
                 entity.Property(e => e.ProdutoId)
                     .HasColumnName("Produto_Id")

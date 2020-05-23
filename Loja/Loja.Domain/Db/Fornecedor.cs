@@ -8,6 +8,7 @@ namespace Loja.Domain.Db
         public Fornecedor()
         {
             Lancamento = new HashSet<Lancamento>();
+            Pedido = new HashSet<Pedido>();
         }
 
         public int IdFornecedor { get; set; }
@@ -19,5 +20,6 @@ namespace Loja.Domain.Db
 
         public virtual StatusFornecedor StatusFornecedor { get; set; }
         public virtual ICollection<Lancamento> Lancamento { get; set; }
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

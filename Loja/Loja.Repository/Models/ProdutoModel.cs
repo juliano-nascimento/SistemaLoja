@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Loja.Repository.Models
 {
-   public class ProdutoModel
+    public class ProdutoModel
     {
         public ProdutoModel()
         {
@@ -54,7 +53,7 @@ namespace Loja.Repository.Models
             if (colunas.Any(c => c.ColumnName.Equals("NomeUsuario")) && !string.IsNullOrEmpty(pReader["NomeUsuario"].ToString()))
                 NomeUsuario = pReader["NomeUsuario"].ToString();
         }
-        
+
         public int IdProduto { get; set; }
         public string NomeProduto { get; set; }
         public string Unidade { get; set; }

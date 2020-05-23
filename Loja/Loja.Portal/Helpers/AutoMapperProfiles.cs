@@ -18,6 +18,10 @@ namespace Loja.Portal.Helpers
                 .ReverseMap();
             CreateMap<Usuario, UsuarioDto>()
                 .ReverseMap();
+            CreateMap<Pedido, PedidoDto>()
+                .ReverseMap();
+            CreateMap<Lancamento, LancamentoDto>()
+                .ReverseMap();
         }
     }
 }

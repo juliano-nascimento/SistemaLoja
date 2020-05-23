@@ -3,9 +3,7 @@ using Loja.Business.Interfaces;
 using Loja.Repository.Dtos;
 using Loja.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Loja.Business.Implementations
@@ -36,7 +34,7 @@ namespace Loja.Business.Implementations
                     model.Retorno = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Loja.Business.Interfaces;
 using Loja.Repository.Dtos;
 using Loja.Repository.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Jarvis.Utils;
 
 namespace Loja.Portal.Controllers
 {
+    [Authorize]
     public class ProdutoController : Controller
     {
         private readonly IProdutoBusiness _business;
@@ -22,6 +21,10 @@ namespace Loja.Portal.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ProdutoModel model = new ProdutoModel();
             model.ListaProdutos = await _business.ObterProdutos();
             return View(model);
@@ -29,6 +32,10 @@ namespace Loja.Portal.Controllers
 
         public IActionResult Adicionar(ProdutoDto produto)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View(produto);
         }
 
@@ -54,17 +61,25 @@ namespace Loja.Portal.Controllers
 
         public async Task<IActionResult> Visualizar()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ProdutoModel model;
             string[] uri = HttpContext.Request.Path.ToUriComponent().Split("/");
-            int Id = Convert.ToInt32(uri[3]);
+            int Id = Encrypt.DecryptId(uri[3]);
             model = await _business.ObterProdutoPorId(Id);
             return View(model);
         }
 
         public async Task<IActionResult> Editar(ProdutoModel produto)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             string[] uri = HttpContext.Request.Path.ToUriComponent().Split("/");
-            int Id = produto.IdProduto == 0 ? Convert.ToInt32(uri[3]) : produto.IdProduto;
+            int Id = produto.IdProduto == 0 ? Encrypt.DecryptId(uri[3]) : produto.IdProduto;
             produto = await _business.ObterProdutoPorId(Id);
             return View(produto);
         }

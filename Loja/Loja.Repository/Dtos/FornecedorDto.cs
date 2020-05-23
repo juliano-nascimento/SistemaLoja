@@ -1,13 +1,11 @@
 ﻿using Loja.Domain.Db;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Loja.Repository.Dtos
 {
-  public  class FornecedorDto
+    public class FornecedorDto
     {
         public FornecedorDto(MySqlDataReader pReader)
         {

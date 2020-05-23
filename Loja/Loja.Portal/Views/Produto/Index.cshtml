@@ -1,4 +1,5 @@
 ﻿@model Loja.Repository.Models.ProdutoModel
+@using Jarvis.Utils
 @{
     ViewData["Title"] = "Index";
 }
@@ -19,7 +20,7 @@
                 <div class="table-responsive">
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
-                            <tr class="headings">                                
+                            <tr class="headings">
                                 <th class="column-title" style="width:15%;">Cód. Produto</th>
                                 <th class="column-title">Código de Barra</th>
                                 <th class="column-title">Nome</th>
@@ -33,15 +34,15 @@
                             {
                                 foreach (var p in Model.ListaProdutos)
                                 {
-                                    <tr>                                        
+                                    <tr>
                                         <td class="">@p.IdProduto</td>
                                         <td class="">@p.CodDeBarra</td>
                                         <td class="">@p.NomeProduto</td>
                                         <td class="">@p.PrecoVenda</td>
                                         <td>@p.Estoque</td>
                                         <td>
-                                            <a href="/Produto/Visualizar/@p.IdProduto" style="margin-right:1%;" id="icones" class="tip-top" title="Visualizar Produto"><i class="fas fa-eye fa-lg"></i></a>
-                                            <a href="/Produto/Editar/@p.IdProduto" style="margin-right:1%;" id="icones" class="tip-top" title="Editar Produto"><i class="fas fa-edit fa-lg"></i></a>
+                                            <a href="/Produto/Visualizar/@Encrypt.EncrypId(p.IdProduto)" style="margin-right:1%;" id="icones" class="tip-top" title="Visualizar Produto"><i class="fas fa-eye fa-lg"></i></a>
+                                            <a href="/Produto/Editar/@Encrypt.EncrypId(p.IdProduto)" style="margin-right:1%;" id="icones" class="tip-top" title="Editar Produto"><i class="fas fa-edit fa-lg"></i></a>
                                             <a href="#modal-excluir" style="margin-right:1%;" role="button" data-toggle="modal" produto="@p.IdProduto" data-target=".bs-example-modal-md" id="icones" class="tip-top" title="Excluir Produto"><i class="fas fa-trash-alt fa-lg"></i></a>
                                             <a href="#atualizar-estoque" style="margin-right:1%;" role="button" data-toggle="modal" produto="@p.IdProduto" estoque="@p.Estoque" data-target=".bs-example-modal-sm" id="icones" class="tip-top" title="Atualizar Estoque"><i class="fas fa-plus-square fa-lg"></i></a>
                                         </td>

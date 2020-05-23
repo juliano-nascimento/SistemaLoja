@@ -3,7 +3,6 @@ using Loja.Repository.Dtos;
 using Loja.Repository.Interfaces;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,7 +46,7 @@ namespace Loja.Repository.Implementations
                 reader.Close();
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 reader.Close();
                 await Conn.CloseAsync();

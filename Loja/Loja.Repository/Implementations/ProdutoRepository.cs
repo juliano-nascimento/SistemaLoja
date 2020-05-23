@@ -1,11 +1,9 @@
 ﻿using Loja.Domain.Db;
 using Loja.Repository.Interfaces;
 using Loja.Repository.Models;
-using Microsoft.EntityFrameworkCore.Storage;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +20,7 @@ namespace Loja.Repository.Implementations
         {
             Conn = new Conexao().ObterConexao();
         }
+
         public async Task<bool> Add(Produto produto)
         {
             stbSQL = new StringBuilder();
@@ -50,18 +49,18 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append($" '{produto.PrecoVenda}', ");
                 stbSQL.Append($" {produto.Estoque}, ");
                 stbSQL.Append($" {produto.EstoqueMinimo}, ");
-                if(produto.Saida != null)
+                if (produto.Saida != null)
                     stbSQL.Append($" {produto.Saida}, ");
                 else
                     stbSQL.Append(" null, ");
-                if(produto.Entrada != null)
+                if (produto.Entrada != null)
                     stbSQL.Append($" {produto.Entrada}, ");
                 else
                     stbSQL.Append(" null, ");
                 stbSQL.Append($" '{produto.CodDeBarra}', ");
                 stbSQL.Append($" '{DateTime.Now.ToString("yyyy/MM/dd HH:MM:ss")}', ");
                 stbSQL.Append($" '{DateTime.Now.ToString("yyyy/MM/dd HH:MM:ss")}', ");
-                if(produto.DataValidade != null)
+                if (produto.DataValidade != null)
                     stbSQL.Append($" '{produto.DataValidade}', ");
                 else
                     stbSQL.Append(" null, ");
@@ -84,7 +83,6 @@ namespace Loja.Repository.Implementations
         public async Task<List<ProdutoModel>> FindAll()
         {
             List<ProdutoModel> lstProduto = new List<ProdutoModel>();
-            ProdutoModel produto = new ProdutoModel();
             stbSQL = new StringBuilder();
             try
             {
@@ -150,7 +148,7 @@ namespace Loja.Repository.Implementations
                 reader.Close();
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 reader.Close();
                 await Conn.CloseAsync();
@@ -169,16 +167,16 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append(" UPDATE produto          ");
                 stbSQL.Append($" SET CodDeBarra = '{pProduto.CodDeBarra}' , ");
                 stbSQL.Append($"     NomeProduto = '{pProduto.NomeProduto}', ");
-                if(pProduto.Entrada != null)
+                if (pProduto.Entrada != null)
                     stbSQL.Append($"     Entrada = {pProduto.Entrada}, ");
-                if(pProduto.Saida != null)
+                if (pProduto.Saida != null)
                     stbSQL.Append($"     Saida = {pProduto.Saida}, ");
                 stbSQL.Append($"     PrecoCompra = '{pProduto.PrecoCompra}', ");
                 stbSQL.Append($"     PrecoVenda = '{pProduto.PrecoVenda}', ");
                 stbSQL.Append($"     Unidade = '{pProduto.Unidade}', ");
                 stbSQL.Append($"     Estoque = {pProduto.Estoque}, ");
                 stbSQL.Append($"     EstoqueMinimo = {pProduto.EstoqueMinimo}, ");
-                if(pProduto.DataValidadeEd != null)
+                if (pProduto.DataValidadeEd != null)
                     stbSQL.Append($"     DataValidade = '{pProduto.DataValidadeEd}', ");
                 stbSQL.Append($"     DataAtualizacao = '{DateTime.Now.ToString("yyyy/MM/dd HH:MM:ss")}', ");
                 stbSQL.Append($"     Usuario_Id = {pProduto.UsuarioId} ");
@@ -190,7 +188,7 @@ namespace Loja.Repository.Implementations
                     retorno = true;
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Conn.CloseAsync();
                 throw new Exception("Erro ao atualizar o produto. " + ex.Message);
@@ -216,7 +214,7 @@ namespace Loja.Repository.Implementations
                     retorno = true;
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Conn.CloseAsync();
                 throw new Exception("Erro ao deletar o Produto. " + ex.Message);
@@ -241,7 +239,7 @@ namespace Loja.Repository.Implementations
                     result = true;
                 await Conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Conn.CloseAsync();
                 throw new Exception("Erro ao atualizar estoque. " + ex.Message);

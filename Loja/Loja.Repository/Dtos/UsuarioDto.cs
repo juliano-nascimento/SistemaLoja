@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Internal;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Loja.Repository.Dtos
 {

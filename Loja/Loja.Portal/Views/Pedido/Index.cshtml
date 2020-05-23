@@ -1,0 +1,99 @@
+﻿@model Loja.Repository.Dtos.PedidoDto
+@using Jarvis.Utils
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="btnAdd">
+    <a href="/Pedido/Adicionar" class="btn btn-success"><i class="fas fa-plus"></i> Novo Pedido</a>
+</div>
+<div class="row" style="display:block;">
+    <div class="clearfix"></div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <span id="icon"><i class="fas fa-receipt"></i> Pedidos</span>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th class="column-title" style="width:15%;">Cód. Pedido</th>
+                                <th class="column-title">Descrição Pedido</th>
+                                <th class="column-title">Data Pedido</th>
+                                <th class="column-title">Valor Total</th>
+                                <th class="column-title">Status Pedido</th>
+                                <th class="column-title">Usuário</th>
+                                <th class="column-title no-link last"><span class="nobr">Ações</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListaPedidos != null && Model.ListaPedidos.Any())
+                            {
+                                @foreach (var p in Model.ListaPedidos)
+                                {
+                                    <tr>
+                                        <td>@p.IdPedido</td>
+                                        <td>@p.DescricaoPedido</td>
+                                        <td>@p.DataPedido</td>
+                                        <td>@p.ValorTotal</td>
+                                        <td>@p.DscStatusPedido</td>
+                                        <td>@p.NomeUsuario</td>
+                                        <td>
+                                            <a href="/Pedido/Visualizar/@Encrypt.EncrypId(p.IdPedido)" style="margin-right:1%;" id="icones" class="v tip-top" title="Visualizar Pedido"><i class="fas fa-eye fa-lg"></i></a>
+                                            <a href="/Pedido/Editar/@Encrypt.EncrypId(p.IdPedido)" style="margin-right:1%;" id="icones" class="tip-top" title="Editar Pedido"><i class="fas fa-edit fa-lg"></i></a>
+                                            <a href="#modal-excluir" style="margin-right:1%;" role="button" data-toggle="modal" pedido="@p.IdPedido" data-target=".bs-example-modal-md" id="icones" class="tip-top" title="Excluir Pedido"><i class="fas fa-trash-alt fa-lg"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7">Nenhum Pedido Cadastrado.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Inicio Modal Excluir-->
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form action="/Pedido/Excluir" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel"><i class="fas fa-trash-alt"></i> Excluir Pedido</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="idPedido" class="idPedido" name="IdPedido" value="" />
+                    <h5 style="text-align:center;">Deseja realmente excluir esse Pedido? </h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Fim Modal Excluir-->
+<script type="text/javascript" src="~/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('click', 'a', function (event) {
+            var pedido = $(this).attr('pedido');
+
+            $('.idPedido').val(pedido);
+        });
+    })
+</script>

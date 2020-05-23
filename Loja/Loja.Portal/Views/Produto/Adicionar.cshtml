@@ -2,24 +2,24 @@
 @{
     ViewData["Title"] = "Adicionar";
 }
-    <style>
-        .badgebox {
-            opacity: 0;
+<style>
+    .badgebox {
+        opacity: 0;
+    }
+
+        .badgebox + .badge {
+            text-indent: -999999px;
+            width: 27px;
         }
 
-            .badgebox + .badge {
-                text-indent: -999999px;
-                width: 27px;
-            }
-
-            /*.badgebox:focus + .badge {
+        /*.badgebox:focus + .badge {
                 box-shadow: inset 0px 0px 5px;
             }*/
 
-            .badgebox:checked + .badge {
-                text-indent: 0;
-            }
-    </style>
+        .badgebox:checked + .badge {
+            text-indent: 0;
+        }
+</style>
 
 <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -47,11 +47,11 @@
                         <div class="col-md-6 col-sm-6">
                             <div id="tipo" class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                    <input type="checkbox" name="Entrada" value="1" class="badgebox join-btn" /> Entrada   
+                                    <input type="checkbox" name="Entrada" value="1" class="badgebox join-btn" /> Entrada
                                     <span class="badge">&check;</span>
                                 </label>
                                 <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                    <input type="checkbox" name="Saida" value="1" class="badgebox join-btn" />&nbsp; Saída 
+                                    <input type="checkbox" name="Saida" value="1" class="badgebox join-btn" />&nbsp; Saída
                                     <span class="badge">&check;</span>
                                 </label>
                             </div>
@@ -60,13 +60,13 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="precoCompra">Preço de Compra <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="precoCompra" name="PrecoCompra" value="@Model.PrecoCompra" required="required" class="money form-control"  />
+                            <input type="text" id="precoCompra" name="PrecoCompra" value="@Model.PrecoCompra" required="required" class="money form-control" />
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="precoVenda">Preço de Venda <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="PrecoVenda" name="PrecoVenda" value="@Model.PrecoVenda" required="required" class="money form-control"  />
+                            <input type="text" id="PrecoVenda" name="PrecoVenda" value="@Model.PrecoVenda" required="required" class="money form-control" />
                         </div>
                     </div>
                     <div class="item form-group">
@@ -91,7 +91,7 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="estoque">Estoque <span class="required">*</span></label>
                         <div class="col-md-4 col-sm-4">
-                            <input type="text" id="estoque" name="Estoque" value="@Model.Estoque" class="form-control" required="required"/>
+                            <input type="text" id="estoque" name="Estoque" value="@Model.Estoque" class="form-control" required="required" />
                         </div>
                     </div>
                     <div class="item form-group">
@@ -128,7 +128,7 @@
                 },
                 PrecoVenda: {
                     required: true
-                },                
+                },
                 Estoque: {
                     required: true
                 }
@@ -138,13 +138,13 @@
                     required: 'Campo Obrigatório.'
                 },
                 PrecoCompra: {
-                    required:'Campo Obrigatório.'
+                    required: 'Campo Obrigatório.'
                 },
                 PrecoVenda: {
-                    required:'Campo Obrigatório.'
-                },                
+                    required: 'Campo Obrigatório.'
+                },
                 Estoque: {
-                    required:'Campo Obrigatório.'
+                    required: 'Campo Obrigatório.'
                 }
             },
             errorClass: "help-inline",

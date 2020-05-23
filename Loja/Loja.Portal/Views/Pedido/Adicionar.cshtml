@@ -1,0 +1,141 @@
+﻿@model Loja.Repository.Dtos.PedidoDto
+@{
+    ViewData["Title"] = "Adicionar";
+}
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <span id="icon"><i class="fas fa-receipt"></i> Cadastro de Pedido</span>
+            </div>
+            <div class="x_content">
+                <br />
+                <form class="form-horizontal form-label-left" action="/Pedido/Adiciona" method="post" id="formPedido">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dscPedido">Descricao Pedido <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dscPedido" name="DescricaoPedido" value="@Model.DescricaoPedido" class="form-control" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="valor">Valor Total <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="valor" name="ValorTotal" value="@Model.ValorTotal" class="money form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dscProduto">Descrição Produtos Comprados <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dscProduto" name="DscProdutos" value="@Model.DscProdutos" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="statusPedido">Status Pedido </label>
+                        <div class="col-md-4 col-sm-4">
+                            <select id="statusPedido" name="StatusPedidoId" class="form-control">
+                                <option value="1">Pendente</option>
+                                <option value="2">Realizado</option>
+                                <option value="3">Enviado</option>
+                                <option value="4">Recebido</option>
+                                <option value="5">Conferido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="fornecedor">Fornecedor <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="fornecedor" class="form-control" name="NomeFornecedor" value="@Model.NomeFornecedor" />
+                            <input type="hidden" id="idFornecedor" name="FornecedorId" value="@Model.FornecedorId" />
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-actions">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Adicionar</button>
+                            <button type="reset" class="btn btn-primary"><i class="fas fa-redo-alt"></i> Limpar</button>
+                            <a href="/Pedido/Index" class="btn btn-secondary"><i class="fas fa-backward"></i> Voltar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#fornecedor').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Fornecedor/GetClientes",
+                    data: request.term,
+                    dataType: "json",
+                    type: "POST",
+                    //contentType: "application/json",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.split('-')[0],
+                                val: item.split('-')[1]
+                            }
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#idFornecedor").val(i.item.val);
+            },
+            minLength: 3
+        });
+    });
+
+    $(document).ready(function () {
+        $(".money").maskMoney();
+        $('#formPedido').validate({
+            rules: {
+                DescricaoPedido: {
+                    required: true
+                },
+                ValorTotal: {
+                    required: true
+                },
+                DscProdutos: {
+                    required: true
+                },
+                NomeFornecedor: {
+                    required: true
+                }
+            },
+            messages: {
+                DescricaoPedido: {
+                    required: 'Campo Obrigatório.'
+                },
+                ValorTotal: {
+                    required: 'Campo Obrigatório.'
+                },
+                DscProdutos: {
+                    required: 'Campo Obrigatório.'
+                },
+                NomeFornecedor: {
+                    required: 'Campo Obrigatório.'
+                }
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').removeClass('error');
+                $(element).parents('.form-group').addClass('success');
+            }
+        });
+    });
+</script>

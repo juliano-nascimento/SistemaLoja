@@ -5,13 +5,12 @@ using Loja.Repository.Dtos;
 using Loja.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Loja.Domain.Db;
 
 namespace Loja.Business.Implementations
 {
-   public class FornecedorBusiness : IFornecedorBusiness
+    public class FornecedorBusiness : IFornecedorBusiness
     {
         private readonly IFornecedorRepository _repository;
         private readonly IMapper _mapper;
@@ -30,7 +29,7 @@ namespace Loja.Business.Implementations
                 if (await _repository.Add(fornecedor))
                     result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -45,7 +44,7 @@ namespace Loja.Business.Implementations
                 if (await _repository.Delete(pIdFornecedor))
                     result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -60,7 +59,7 @@ namespace Loja.Business.Implementations
             {
                 lstFornecedor = await _repository.FindByAtivos(StatusFornecedor);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -74,11 +73,25 @@ namespace Loja.Business.Implementations
             {
                 fornecedor = await _repository.FindById(pId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
             return fornecedor;
+        }
+
+        public async Task<List<string>> ObterNomeIdFornecedores(string pTermo)
+        {
+            List<string> lstFornecedores;
+            try
+            {
+                lstFornecedores = await _repository.FindNomeIdPorTermo(pTermo);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return lstFornecedores;
         }
 
         public async Task<bool> Update(FornecedorDto pFornecedor)
@@ -90,7 +103,7 @@ namespace Loja.Business.Implementations
                 if (await _repository.Update(fornecedor))
                     result = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

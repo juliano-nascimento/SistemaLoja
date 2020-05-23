@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Loja.Business.Interfaces;
@@ -35,18 +34,18 @@ namespace Loja.Portal.Controllers
             string json;
             try
             {
-                if(Email != null)
+                if (Email != null)
                 {
                     usuario = await _business.ValidarLogin(Email, Senha);
                     if (usuario.Retorno)
                     {
-                        if(usuario.DataExpiracao < DateTime.Now)
+                        if (usuario.DataExpiracao < DateTime.Now)
                         {
                             usuario.Result = false;
                             usuario.Mensagem = "Acesso Expirado Entre em contato com o Administrador do Sistema!";
                             json = JsonConvert.SerializeObject(usuario);
                             return Json(json);
-                            
+
                         }
 
                         Logar(usuario);
@@ -71,13 +70,19 @@ namespace Loja.Portal.Controllers
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 usuario.Result = false;
                 usuario.Mensagem = "Ocorreu algum erro na tentativa de login, Tente Novamente! ";
                 json = JsonConvert.SerializeObject(usuario);
                 return Json(json);
-            }           
+            }
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index");
         }
 
         private async void Logar(UsuarioDto usuario)
@@ -100,7 +105,7 @@ namespace Loja.Portal.Controllers
                 IsPersistent = true
             };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, propriedadeAutenticacao);
-            
+
         }
     }
 }

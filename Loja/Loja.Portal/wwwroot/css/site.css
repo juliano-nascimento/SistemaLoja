@@ -8,6 +8,9 @@
     color: rgb(208,174,76);
 }
 
+a:hover{
+    color:white;
+}
 #icones i{
     color:black;    
 }
