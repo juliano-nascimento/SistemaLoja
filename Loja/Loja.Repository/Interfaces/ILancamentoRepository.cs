@@ -11,5 +11,9 @@ namespace Loja.Repository.Interfaces
         Task<bool> Add(Lancamento pLancamento);
         Task<List<LancamentoDto>> FindIdLancamento(int pUsuarioId, int pTipoLancamentoId);
         void DesfazerLancamento(int pId);
+        Task<List<LancamentoDto>> FindAll();
+        Task<LancamentoDto> FindById(int pId);
+        Task<bool> Update(LancamentoDto pLancamento);
+        Task<bool> Cancelar(int pId, int pIdUsuario);
     }
 }

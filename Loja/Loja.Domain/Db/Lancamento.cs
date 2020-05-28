@@ -18,7 +18,7 @@ namespace Loja.Domain.Db
         public DateTime? DataVencimento { get; set; }
         public DateTime? DataPagamento { get; set; }
         public ulong Baixado { get; set; }
-        public int FornecedorId { get; set; }
+        public int? FornecedorId { get; set; }
         public int TipoPagamentoId { get; set; }
         public int TipoLancamentoId { get; set; }
         public int? ContaId { get; set; }

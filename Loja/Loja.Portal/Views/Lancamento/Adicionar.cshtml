@@ -1,0 +1,142 @@
+﻿@model Loja.Repository.Dtos.LancamentoDto
+@{
+    ViewData["Title"] = "Adicionar";
+}
+
+<style>
+    .badgebox {
+        opacity: 0;
+    }
+
+        .badgebox + .badge {
+            text-indent: -999999px;
+            width: 27px;
+        }
+
+        /*.badgebox:focus + .badge {
+            box-shadow: inset 0px 0px 5px;
+        }*/
+
+        .badgebox:checked + .badge {
+            text-indent: 0;
+        }
+</style>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <span id="icon"><i class="fas fa-file-invoice"></i> Cadastro de Lancamentos Financeiros</span>
+            </div>
+            <div class="x_content">
+                <br />
+                <form class="form-horizontal form-label-left" action="/Lancamento/Adiciona" method="post" id="formLancamento">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dscLancamento">Descrição Lançamento <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dscLancamento" name="DscLancamento" value="@Model.DscLancamento" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="valor">Valor Total <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="valor" value="@Model.ValorLancamento" name="ValorLancamento" class="money form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dtVencimento">Data Vencimento</label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dtVencimento" name="DataVencimento" value="@Model.DataVencimento" class="form-control" onkeypress="$(this).mask('00/00/0000')" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tipoPagamento">Forma de Pagamento </label>
+                        <div class="col-md-4 col-sm-4">
+                            <select id="tipoPagamento" name="TipoPagamentoId" class="form-control">
+                                <option value="1">Boleto</option>
+                                <option value="2">Credito</option>
+                                <option value="3">Debito</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tipoLancamento">Tipo de Lancamento </label>
+                        <div class="col-md-4 col-sm-4">
+                            <select id="tipoLancamento" name="TipoLancamentoId" class="form-control">
+                                <option value="1">Recebimento</option>
+                                <option value="2">Pagamento</option>
+                                <option value="3">Devolução</option>
+                            </select>
+                        </div>
+                    </div>
+                    @if (Model.ListaContas != null && Model.ListaContas.Any())
+                    {
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="contas">Contas Cadastradas</label>
+                            <div class="col-md-4 col-sm-4">
+                                <select id="contas" name="ContaId" class="form-control">
+                                    @foreach (var c in Model.ListaContas)
+                                    {
+                                        <option value="@c.IdConta">@c.Banco</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    <div class="ln_solid"></div>
+                    <div class="item form-actions">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Adicionar</button>
+                            <button type="reset" class="btn btn-primary"><i class="fas fa-redo-alt"></i> Limpar</button>
+                            <a href="/Lancamento/Index" class="btn btn-secondary"><i class="fas fa-backward"></i> Voltar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".money").maskMoney();
+        $('#formLancamento').validate({
+            rules: {
+                DscLancamento: {
+                    required: true
+                },
+                ValorLancamento: {
+                    required: true
+                },
+                TipoPagamentoId: {
+                    required: true
+                },
+                TipoLancamentoId: {
+                    required: true
+                }
+            },
+            messages: {
+                DscLancamento: {
+                    required: 'Campo Obrigatório.'
+                },
+                ValorLancamento: {
+                    required: 'Campo Obrigatório.'
+                },
+                TipoPagamentoId: {
+                    required: 'Campo Obrigatório.'
+                },
+                TipoLancamentoId: {
+                    required: 'Campo Obrigatório.'
+                }
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').removeClass('error');
+                $(element).parents('.form-group').addClass('success');
+            }
+        });
+    });
+</script>

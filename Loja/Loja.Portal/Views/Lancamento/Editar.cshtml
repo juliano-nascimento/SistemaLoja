@@ -1,0 +1,86 @@
+﻿@model Loja.Repository.Dtos.LancamentoDto
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <span id="icon"><i class="fas fa-file-invoice"></i> Editar Lançamento</span>
+            </div>
+            <div class="x_content">
+                <br />
+                <form class="form-horizontal form-label-left" action="/Lancamento/Edit" method="post" id="formLancamento">
+                    <div class="item form-group">
+                        <input type="hidden" name="IdLancamento" value="@Model.IdLancamento" />
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dscLancamento">Descrição Lançamento <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dscLancamento" name="DscLancamento" value="@Model.DscLancamento" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="valor">Valor Total <span class="required">*</span></label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="valor" value="@Model.ValorLancamento" name="ValorLancamento" class="money form-control" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dtVencimento">Data Vencimento</label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dtVencimento" name="DataVencimento" value="@Model.DataVencimento" class="form-control" onkeypress="$(this).mask('00/00/0000')" />
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="dtPagamento">Data Pagamento</label>
+                        <div class="col-md-4 col-sm-4">
+                            <input type="text" id="dtPagamento" name="DataPagamento" value="@Model.DataPagamento" class="form-control" onkeypress="$(this).mask('00/00/0000')" />
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-actions">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-sync-alt"></i> Atualizar</button>
+                            <button type="reset" class="btn btn-primary"><i class="fas fa-redo-alt"></i> Limpar</button>
+                            <a href="/Lancamento/Index" class="btn btn-secondary"><i class="fas fa-backward"></i> Voltar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".money").maskMoney();
+        $('#formLancamento').validate({
+            rules: {
+                DscLancamento: {
+                    required: true
+                },
+                ValorLancamento: {
+                    required: true
+                }              
+            },
+            messages: {
+                DscLancamento: {
+                    required: 'Campo Obrigatório.'
+                },
+                ValorLancamento: {
+                    required: 'Campo Obrigatório.'
+                }                
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents('.form-group').removeClass('error');
+                $(element).parents('.form-group').addClass('success');
+            }
+        });
+    });
+</script>

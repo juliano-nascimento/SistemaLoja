@@ -44,12 +44,14 @@ namespace Loja.Portal
             services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
             services.AddScoped<IPedidoBusiness, PedidoBusiness>();
             services.AddScoped<ILancamentoBusiness, LancamentoBusiness>();
+            services.AddScoped<IContaBusiness, ContaBusiness>();
             //Interfaces Repository
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<ILancamentoRepository, LancamentoRepository>();
+            services.AddScoped<IContaRepository, ContaRepository>();
             services.AddMvc();
             services.AddAutoMapper(typeof(Startup));
         }

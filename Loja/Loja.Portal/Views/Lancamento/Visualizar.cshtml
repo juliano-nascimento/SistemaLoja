@@ -1,0 +1,70 @@
+﻿@model Loja.Repository.Dtos.LancamentoDto
+@{
+    ViewData["Title"] = "Visualizar";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <span id="icon"><i class="fas fa-file-invoice"></i> Dados do Lançamento</span>
+    </div>
+    <div class="x_content">
+        <br />
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Código Lançamento</strong></td>
+                    <td>@Model.IdLancamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Descrição Lançamento</strong></td>
+                    <td>@Model.DscLancamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Data do Lançamento</strong></td>
+                    <td>@Model.DataLancamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Valor Lançamento</strong></td>
+                    <td>@Model.ValorLancamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Data de Vencimento</strong></td>
+                    <td>@Model.DataVencimento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Data do Pagamento</strong></td>
+                    <td>@Model.DataPagamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Baixado</strong></td>
+                    <td>@(Model.Baixado == 1? "Sim" : "Não")</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Fornecedor</strong></td>
+                    <td>@Model.NomeFornecedor</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Tipo de Pagamento</strong></td>
+                    <td>@Model.DscTipoPagamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Tipo de Lançamento</strong></td>
+                    <td>@Model.DscTipoLancamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Conta</strong></td>
+                    <td>@Model.ContaId - @Model.Banco</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Data de Cancelamento</strong></td>
+                    <td>@Model.DataCancelamento</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; width:30%;"><strong>Usuario</strong></td>
+                    <td>@Model.NomeUsuario</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

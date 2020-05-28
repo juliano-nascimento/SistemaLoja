@@ -43,7 +43,7 @@ namespace Loja.Repository.Implementations
                 stbSQL.Append(" DataCancelamento) ");
                 stbSQL.Append(" VALUES(  ");
                 stbSQL.Append($" '{pLancamento.DscLancamento}', ");
-                stbSQL.Append($" '{DateTime.Now.ToString("yyyy/MM/dd HH:MM:ss")}', ");
+                stbSQL.Append($" '{DateTime.Now:yyyy/MM/dd HH:MM:ss}', ");
                 stbSQL.Append($" '{pLancamento.ValorLancamento}', ");
                 if (!string.IsNullOrEmpty(pLancamento.DataVencimento.ToString()))
                     stbSQL.Append($" '{pLancamento.DataVencimento}', ");
@@ -57,7 +57,10 @@ namespace Loja.Repository.Implementations
                     stbSQL.Append($" {pLancamento.Baixado}, ");
                 else
                     stbSQL.Append(" null, ");
-                stbSQL.Append($" {pLancamento.FornecedorId}, ");
+                if(!string.IsNullOrEmpty(pLancamento.FornecedorId.ToString()))
+                    stbSQL.Append($" {pLancamento.FornecedorId}, ");
+                else
+                    stbSQL.Append(" null, ");
                 stbSQL.Append($" {pLancamento.TipoPagamentoId}, ");
                 stbSQL.Append($" {pLancamento.TipoLancamentoId}, ");
                 if (!string.IsNullOrEmpty(pLancamento.ContaId.ToString()) && pLancamento.ContaId != 0)
@@ -138,6 +141,168 @@ namespace Loja.Repository.Implementations
                 throw new Exception("Erro ao desfazer lancamento. " + ex.Message);
             }
             
+        }
+
+        public async Task<List<LancamentoDto>> FindAll()
+        {
+            stbSQL = new StringBuilder();
+            List<LancamentoDto> lstLancamento = new List<LancamentoDto>();
+            try
+            {
+                stbSQL.Append(" SELECT ");
+                stbSQL.Append(" l.IdLancamento, ");
+                stbSQL.Append(" l.DscLancamento, ");
+                stbSQL.Append(" l.DataLancamento, ");
+                stbSQL.Append(" l.ValorLancamento, ");
+                stbSQL.Append(" l.DataVencimento, ");
+                stbSQL.Append(" l.DataPagamento, ");
+                stbSQL.Append(" l.Baixado, ");
+                stbSQL.Append(" l.Fornecedor_Id, ");
+                stbSQL.Append(" f.NomeFornecedor, ");
+                stbSQL.Append(" l.TipoPagamento_Id,   ");
+                stbSQL.Append(" tp.DscTipoPagamento,  ");
+                stbSQL.Append(" l.TipoLancamento_Id,  ");
+                stbSQL.Append(" tl.DscTipoLancamento, ");
+                stbSQL.Append(" l.Conta_Id, ");
+                stbSQL.Append(" l.Usuario_Id,  ");
+                stbSQL.Append(" u.NomeUsuario, ");
+                stbSQL.Append(" l.DataCancelamento, ");
+                stbSQL.Append(" CASE WHEN l.DataCancelamento IS NULL THEN 'Ativo' ELSE 'Cancelado' END AS StatusLancamento ");
+                stbSQL.Append(" FROM lancamento l ");
+                stbSQL.Append(" LEFT JOIN fornecedor f ON l.Fornecedor_Id = f.IdFornecedor ");
+                stbSQL.Append(" JOIN tipo_pagamento tp ON l.TipoPagamento_Id = tp.IdTipoPagamento ");
+                stbSQL.Append(" JOIN tipo_lancamento tl ON l.TipoLancamento_Id = tl.IdTipoLancamento ");
+                stbSQL.Append(" LEFT JOIN contas c ON l.Conta_Id = c.IdConta ");
+                stbSQL.Append(" JOIN usuario u ON l.Usuario_Id = u.IdUsuario ");
+                command = new MySqlCommand(stbSQL.ToString(), Conn);
+                await Conn.OpenAsync();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    lstLancamento.Add(new LancamentoDto(reader));
+                }
+                reader.Close();
+                await Conn.CloseAsync();
+            }
+            catch(Exception ex)
+            {
+                reader.Close();
+                await Conn.CloseAsync();
+                throw new Exception("Erro ao consultar os lancamentos. " + ex.Message);
+            }
+            return lstLancamento;
+        }
+
+        public async Task<LancamentoDto> FindById(int pId)
+        {
+            stbSQL = new StringBuilder();
+            LancamentoDto model = new LancamentoDto();
+            try
+            {
+                stbSQL.Append(" SELECT ");
+                stbSQL.Append(" l.IdLancamento, ");
+                stbSQL.Append(" l.DscLancamento, ");
+                stbSQL.Append(" l.DataLancamento, ");
+                stbSQL.Append(" l.ValorLancamento, ");
+                stbSQL.Append(" l.DataVencimento, ");
+                stbSQL.Append(" l.DataPagamento, ");
+                stbSQL.Append(" l.Baixado, ");
+                stbSQL.Append(" l.Fornecedor_Id, ");
+                stbSQL.Append(" f.NomeFornecedor, ");
+                stbSQL.Append(" l.TipoPagamento_Id, ");
+                stbSQL.Append(" tp.DscTipoPagamento, ");
+                stbSQL.Append(" l.TipoLancamento_Id, ");
+                stbSQL.Append(" tl.DscTipoLancamento, ");
+                stbSQL.Append(" l.Conta_Id, ");
+                stbSQL.Append(" c.Banco, ");
+                stbSQL.Append(" c.Agencia, ");
+                stbSQL.Append(" c.Conta, ");
+                stbSQL.Append(" c.Saldo, ");
+                stbSQL.Append(" l.Usuario_Id, ");
+                stbSQL.Append(" u.NomeUsuario, ");
+                stbSQL.Append(" l.DataCancelamento ");
+                stbSQL.Append(" FROM lancamento l ");
+                stbSQL.Append(" LEFT JOIN fornecedor f ON l.Fornecedor_Id = f.IdFornecedor ");
+                stbSQL.Append(" JOIN tipo_pagamento tp ON l.TipoPagamento_Id = tp.IdTipoPagamento ");
+                stbSQL.Append(" JOIN tipo_lancamento tl ON l.TipoLancamento_Id = tl.IdTipoLancamento ");
+                stbSQL.Append(" LEFT JOIN contas c ON l.Conta_Id = c.IdConta ");
+                stbSQL.Append(" JOIN usuario u ON l.Usuario_Id = u.IdUsuario ");
+                stbSQL.Append($" WHERE l.IdLancamento = {pId} ");
+                command = new MySqlCommand(stbSQL.ToString(), Conn);
+                await Conn.OpenAsync();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    model = new LancamentoDto(reader);
+                }
+                reader.Close();
+                await Conn.CloseAsync();
+            }
+            catch(Exception ex)
+            {
+                reader.Close();
+                await Conn.CloseAsync();
+                throw new Exception("Erro ao consultar Lancamento. " + ex.Message);
+            }
+            return model;
+        }
+
+        public async Task<bool> Update(LancamentoDto pLancamento)
+        {
+            stbSQL = new StringBuilder();
+            bool result = false;
+            int com;
+            try
+            {
+                stbSQL.Append(" UPDATE lancamento ");
+                stbSQL.Append($" SET DscLancamento = '{pLancamento.DscLancamento}', ");
+                stbSQL.Append($"     ValorLancamento = '{pLancamento.ValorLancamento}', ");
+                if(!string.IsNullOrEmpty(pLancamento.DataVencimento))
+                    stbSQL.Append($"     DataVencimento = '{DateTime.Parse(pLancamento.DataVencimento):yyyy/MM/dd}', ");
+                if (!string.IsNullOrEmpty(pLancamento.DataPagamento))
+                    stbSQL.Append($"     DataPagamento = '{DateTime.Parse(pLancamento.DataPagamento):yyyy/MM/dd}', ");
+                stbSQL.Append($"     Baixado = {pLancamento.Baixado}, ");
+                stbSQL.Append($"     Usuario_Id = {pLancamento.UsuarioId}");
+                stbSQL.Append($" WHERE IdLancamento = {pLancamento.IdLancamento} ");
+                command = new MySqlCommand(stbSQL.ToString(), Conn);
+                await Conn.OpenAsync();
+                com = command.ExecuteNonQuery();
+                if (com > 0)
+                    result = true;
+                await Conn.CloseAsync();
+            }
+            catch(Exception ex)
+            {
+                await Conn.CloseAsync();
+                throw new Exception("Erro ao editar o lancamento. " + ex.Message);
+            }
+            return result;
+        }
+
+        public async Task<bool> Cancelar(int pId, int pIdUsuario)
+        {
+            stbSQL = new StringBuilder();
+            bool result = false;
+            int com;
+            try
+            {
+                stbSQL.Append(" UPDATE lancamento ");
+                stbSQL.Append($" SET DataCancelamento = '{DateTime.Now:yyyy/MM/dd HH:MM:ss}', ");
+                stbSQL.Append($"     Usuario_Id = {pIdUsuario} ");
+                stbSQL.Append($" WHERE IdLancamento = {pId} ");
+                command = new MySqlCommand(stbSQL.ToString(), Conn);
+                await Conn.OpenAsync();
+                com = command.ExecuteNonQuery();
+                if (com > 0)
+                    result = true;
+                await Conn.CloseAsync();
+            }
+            catch(Exception ex)
+            {
+                await Conn.CloseAsync();
+                throw new Exception("Erro ao cancelar lancamento. " + ex.Message);
+            }
+            return result;
         }
     }
 }
